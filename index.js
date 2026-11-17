@@ -19,7 +19,24 @@ app.get("/math/circle/:r", (req, res) => {
   res.json(result);
 });
 
+//4_1.2
+app.get("/math/rectangle/:width/:height", (req, res) => {
+  const width = parseFloat(req.params.width);
+  const height = parseFloat(req.params.height);
 
+  if (isNaN(width) || isNaN(height) || width < 0 || height < 0) {
+    return res
+      .status(400)
+      .json({ error: "Szerokość i wysokość muszą być liczbami nieujemnymi" });
+  }
+
+  const result = {
+    area: width * height,
+    perimeter: 2 * (width + height),
+  };
+
+  res.json(result);
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
